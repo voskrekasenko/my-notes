@@ -1,10 +1,13 @@
 <template>
   <section>
     <h1>My Notes</h1>
-
+    <hr>
     <ul class="list-group">
       <li class="list-group-item" v-for="note of notes" :key="note.id">
         <a href="#" @click.prevent="openNote(note.id)">{{ note.name }}</a>
+        <nuxt-link to="/editNote">
+          <img class="icon-edit ml-2" src="@/assets/edit-ico.svg" alt="edit ico">
+        </nuxt-link>
       </li>
     </ul>
   </section>
@@ -31,5 +34,7 @@ export default {
 </script>
 
 <style scoped>
-
+  .icon-edit {
+    max-width: 16px;
+  }
 </style>

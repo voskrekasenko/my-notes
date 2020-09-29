@@ -1,13 +1,17 @@
 <template>
   <section>
-    <h1>Creating note</h1>
-<!--    <p>{{ note.text }}</p>-->
+    <Note/>
   </section>
 </template>
 
 <script>
+import Note from '@/components/Note'
+
 export default {
-  name: 'note'
+  name: 'createNote',
+  components: {
+    Note
+  }
 }
 </script>
 

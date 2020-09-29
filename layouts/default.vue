@@ -3,7 +3,7 @@
     <Navbar/>
 
     <main>
-      <div class='container'>
+      <div class='container custom'>
         <nuxt/>
       </div>
     </main>
@@ -21,6 +21,9 @@ export default {
 }
 </script>
 <style>
-
+ .container.custom  {
+   width: auto;
+   max-width: 800px;
+ }
 </style>
 

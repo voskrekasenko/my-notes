@@ -7,7 +7,7 @@
             <nuxt-link exact no-prefetch active-class="active" class="nav-link" to="/notes">Notes</nuxt-link>
           </li>
           <li class="nav-item">
-            <nuxt-link no-prefetch active-class="active" class="nav-link" to="/note">Create Note</nuxt-link>
+            <nuxt-link no-prefetch active-class="active" class="nav-link" to="/createNote">Create Note</nuxt-link>
           </li>
           <li class="nav-item">
             <nuxt-link no-prefetch active-class="active" class="nav-link" to="/settings">Settings</nuxt-link>

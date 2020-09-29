@@ -10,6 +10,20 @@
         <p>{{ comment.content }}</p>
       </li>
     </ul>
+    <hr>
+    <form @submit="submit()">
+      <h2>Add comment</h2>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+      </div>
+      <div class="input-group mb-3">
+        <textarea class="form-control" aria-label="With textarea" placeholder="Edit comment"></textarea>
+      </div>
+      <div>
+        <button type="button" class="btn btn-dark">Add</button>
+        <button type="button" class="btn btn-light">Clear</button>
+      </div>
+    </form>
   </section>
 </template>
 
@@ -22,6 +36,11 @@ export default {
   async asyncData({store, params}) {
     const note = store.getters['notes/notes'].find(note => note.id == params.id)
     return {note}
+  },
+  methods: {
+    submit() {
+
+    }
   }
 }
 </script>

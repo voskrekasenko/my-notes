@@ -1,7 +1,7 @@
 <template>
   <section class="container">
     <div>
-      <h1 class="">
+      <h1>
         This is My Notes Application
       </h1>
     </div>
