@@ -14,7 +14,13 @@
         @click="createNote()"
       >Add
       </button>
-      <button type="button" class="btn btn-light">Clear</button>
+      <button
+        type="button"
+        class="btn btn-light"
+        @click="clearFields()"
+      >
+        Clear
+      </button>
     </div>
   </section>
 </template>
@@ -39,6 +45,10 @@ export default {
   methods: {
     createNote() {
 
+    },
+    clearFields() {
+      this.name = ''
+      this.content = ''
     }
   }
 }
