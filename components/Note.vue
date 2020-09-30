@@ -98,13 +98,13 @@ export default {
         this.$v.$touch()
         return
       }
+
       await this.$store.dispatch(`notes/${this.noteId ? 'updateNote' : 'createNote'}`, {
         name: this.noteName,
         content: this.noteContent,
         id: this.noteId
       })
-      this.noteName = ''
-      this.noteContent = ''
+      this.clearFields()
       this.$v.$reset()
       this.$router.push('/notes')
     },
