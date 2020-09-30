@@ -53,6 +53,9 @@ module.exports = {
         }
       }
     ]
+  ],
+  plugins: [
+    '@/plugins/vuelidate'
   ]
 }
 

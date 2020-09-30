@@ -1,6 +1,11 @@
 <template>
   <section>
-    <Note :name="singleNote.name" :content="singleNote.content" :title="'Edit Note'"/>
+    <Note
+      :name="singleNote.name"
+      :content="singleNote.content"
+      :title="'Edit Note'"
+      :button="'Edit'"
+    />
   </section>
 </template>
 
