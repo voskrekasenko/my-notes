@@ -15,11 +15,6 @@
 
 <script>
 export default {
-  // async fetch({store}){
-  //   if(store.getters['notes/notes'].length === 0) {
-  //     await store.dispatch('notes/fetch')
-  //   }
-  // },
   async mounted() {
     await this.$store.dispatch('notes/fetchNotes')
   },

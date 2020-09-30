@@ -3,7 +3,7 @@
     <h1>{{ note.name }}</h1>
     <p>{{ note.content }}</p>
     <hr>
-    <Comments :comments="note.comments"/>
+    <Comments :comments="note.comments" :note-id="noteId"/>
   </section>
 </template>
 
@@ -20,6 +20,11 @@ export default {
   },
   components: {
     Comments
+  },
+  computed: {
+    noteId() {
+      return this.$route.params.id
+    }
   }
 }
 </script>

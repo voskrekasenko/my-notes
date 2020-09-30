@@ -7,18 +7,18 @@
         :key="comment.id"
       >
         <span class="badge badge-secondary">{{ comment.author }}</span>
-        <span class="badge badge-warning">{{ comment.created_at }}</span>
+        <span class="badge badge-warning">{{ comment.created_at | formatDate }}</span>
         <p>{{ comment.content }}</p>
       </li>
     </ul>
     <hr>
-    <form @submit.prevent="createComment">
+    <form @submit.prevent="commentHandler">
       <h2>Add comment</h2>
       <div class="input-field mb-3">
         <input
           type="text"
           class="form-control"
-          placeholder="Username"
+          placeholder="Your name"
           v-model="author"
           :class="{'is-invalid': $v.author.$dirty && (!$v.author.required || !$v.author.twoWordsCapitalise)}"
         >
@@ -86,6 +86,10 @@ export default {
     comments: {
       type: Array,
       required: false
+    },
+    noteId: {
+      type: String,
+      required: true
     }
   },
   validations: {
@@ -93,11 +97,22 @@ export default {
     content: {required}
   },
   methods: {
-    createComment() {
+    async commentHandler() {
+      const created_at = Date.now().toString()
+
       if (this.$v.$invalid) {
         this.$v.$touch()
         return
       }
+
+      await this.$store.dispatch('comments/createComment', {
+        author: this.author,
+        content: this.content,
+        created_at,
+        noteId: this.noteId
+      })
+      this.clearFields()
+      this.$v.$reset()
     },
     clearFields() {
       this.author = ''
