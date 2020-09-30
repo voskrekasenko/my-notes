@@ -49,7 +49,7 @@ module.exports = {
           appId: '1:82463393361:web:ae666ca320a142a9cd5a70'
         },
         services: {
-          storage: true
+          realtimeDb: true
         }
       }
     ]

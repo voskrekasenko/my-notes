@@ -1,7 +1,7 @@
 <template>
   <section>
     <h1>{{ title }}</h1>
-    <form @submit.prevent="createNote">
+    <form @submit.prevent="noteHandler">
       <div class="input-field mb-3">
         <input
           id="name"
@@ -10,12 +10,12 @@
           placeholder="name"
           aria-label="Name"
           aria-describedby="basic-addon1"
-          v-model="name"
-          :class="{'is-invalid': $v.name.$dirty && !$v.name.required}"
+          v-model="noteName"
+          :class="{'is-invalid': $v.noteName.$dirty && !$v.noteName.required}"
         >
         <span
           class="invalid-feedback"
-          v-if="$v.name.$dirty && !$v.name.required"
+          v-if="$v.noteName.$dirty && !$v.noteName.required"
         >
           Enter name
         </span>
@@ -26,12 +26,12 @@
           class="form-control"
           aria-label="With textarea"
           placeholder="content"
-          v-model="content"
-          :class="{'is-invalid': $v.content.$dirty && !$v.content.required}"
+          v-model="noteContent"
+          :class="{'is-invalid': $v.noteContent.$dirty && !$v.noteContent.required}"
         ></textarea>
         <span
           class="invalid-feedback"
-          v-if="$v.content.$dirty && !$v.content.required"
+          v-if="$v.noteContent.$dirty && !$v.noteContent.required"
         >
           Enter name
         </span>
@@ -58,6 +58,12 @@
 import {required} from 'vuelidate/lib/validators'
 
 export default {
+  data: function () {
+    return {
+      noteName: this.name,
+      noteContent: this.content,
+    }
+  },
   name: 'Note',
   props: {
     title: {
@@ -78,19 +84,33 @@ export default {
     },
   },
   validations: {
-    name: {required},
-    content: {required}
+    noteName: {required},
+    noteContent: {required}
+  },
+  computed: {
+    noteId() {
+      return this.$route.params.id || null
+    }
   },
   methods: {
-    createNote() {
+    async noteHandler() {
       if (this.$v.$invalid) {
         this.$v.$touch()
         return
       }
+      await this.$store.dispatch(`notes/${this.noteId ? 'updateNote' : 'createNote'}`, {
+        name: this.noteName,
+        content: this.noteContent,
+        id: this.noteId
+      })
+      this.noteName = ''
+      this.noteContent = ''
+      this.$v.$reset()
+      this.$router.push('/notes')
     },
     clearFields() {
-      this.name = ''
-      this.content = ''
+      this.noteName = ''
+      this.noteContent = ''
     }
   }
 }

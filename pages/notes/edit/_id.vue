@@ -13,13 +13,13 @@
 import Note from '@/components/Note'
 
 export default {
-  name: 'editNote',
+  name: "_id",
   components: {
     Note
   },
   computed: {
     singleNote() {
-      return this.$store.getters['notes/notes'].find(e => e.id)
+      return this.$store.getters['notes/notes'].find(note => note.id === this.$route.params.id)
     }
   }
 }

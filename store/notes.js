@@ -1,3 +1,5 @@
+import firebase from "firebase";
+
 export const state = () => ({
   notes: []
 })
@@ -9,45 +11,24 @@ export const mutations = {
 }
 
 export const actions = {
-  fetch({commit}) {
-    const notes = [
-      {
-        id: '1',
-        name: 'Clean',
-        content: 'I need clean my home',
-        comments: [
-          {
-            author: 'Mark East',
-            content : 'lol',
-            created_at: ''
-          },
-          {
-            author: 'Helen Uro',
-            content : 'good luck',
-            created_at: ''
-          }
-        ]
-      },
-      {
-        id: '3',
-        name: 'Work',
-        content: 'I need write a test task',
-        comments: [
-          {
-            author: 'Joe Cole',
-            content : 'ok',
-            created_at: ''
-          }
-        ]
-      },
-      {
-        id: '5',
-        name: 'Sleep',
-        content: 'Sleep after good day!',
-        comments: []
-      }
-    ]
-    commit('setNotes', notes)
+  async fetchNotes({commit}) {
+    try {
+      const notes = (await firebase.database().ref('/notes').once('value')).val() || {}
+      const notesModified = Object.keys(notes).map(key => ({...notes[key], id: key}))
+      commit('setNotes', notesModified)
+      return Object.keys(notes).map(key => ({...notes[key], id: key}))
+    } catch (e) {}
+  },
+  async createNote({commit, dispatch}, {name, content}) {
+    try {
+      const note = await firebase.database().ref('/notes').push({name, content})
+      return {name, content, id: note.getKey()}
+    } catch (e) {}
+  },
+  async updateNote({commit, dispatch}, {name, content, id}) {
+    try {
+      await firebase.database().ref(`/notes`).child(id).update({name, content})
+    } catch (e) {}
   }
 }
 

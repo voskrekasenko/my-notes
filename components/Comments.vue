@@ -1,7 +1,11 @@
 <template>
   <section>
     <ul class="list-group">
-      <li class="list-group-item" v-for="comment of comments" :key="comment.id">
+      <li
+        class="list-group-item"
+        v-for="comment of comments"
+        :key="comment.id"
+      >
         <span class="badge badge-secondary">{{ comment.author }}</span>
         <span class="badge badge-warning">{{ comment.created_at }}</span>
         <p>{{ comment.content }}</p>
@@ -46,8 +50,19 @@
         </span>
       </div>
       <div>
-        <button type="submit" class="btn btn-dark">Add</button>
-        <button type="button" class="btn btn-light" @click="clearFields">Clear</button>
+        <button
+          type="submit"
+          class="btn btn-dark"
+        >
+          Add
+        </button>
+        <button
+          type="button"
+          class="btn btn-light"
+          @click="clearFields"
+        >
+          Clear
+        </button>
       </div>
     </form>
   </section>
@@ -70,7 +85,7 @@ export default {
   props: {
     comments: {
       type: Array,
-      required: true
+      required: false
     }
   },
   validations: {
@@ -87,9 +102,6 @@ export default {
     clearFields() {
       this.author = ''
       this.content = ''
-    },
-    twoWordCamelCase() {
-      return false
     }
   }
 }

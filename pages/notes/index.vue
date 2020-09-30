@@ -5,9 +5,9 @@
     <ul class="list-group">
       <li class="list-group-item" v-for="note of notes" :key="note.id">
         <a href="#" @click.prevent="openNote(note.id)">{{ note.name }}</a>
-        <nuxt-link to="/editNote">
+        <a href="#" @click.prevent="editNote(note.id)">
           <img class="icon-edit ml-2" src="@/assets/edit-ico.svg" alt="edit ico">
-        </nuxt-link>
+        </a>
       </li>
     </ul>
   </section>
@@ -15,14 +15,20 @@
 
 <script>
 export default {
-  async fetch({store}){
-    if(store.getters['notes/notes'].length === 0) {
-      await store.dispatch('notes/fetch')
-    }
+  // async fetch({store}){
+  //   if(store.getters['notes/notes'].length === 0) {
+  //     await store.dispatch('notes/fetch')
+  //   }
+  // },
+  async mounted() {
+    await this.$store.dispatch('notes/fetchNotes')
   },
   methods: {
     openNote(id) {
       this.$router.push('/notes/' + id)
+    },
+    editNote(id) {
+      this.$router.push('/notes/edit/' + id)
     }
   },
   computed: {
