@@ -11,10 +11,19 @@ export const mutations = {
 }
 
 export const actions = {
+  async fetchComments({commit}, noteId) {
+    try {
+      const comments = (await firebase.database().ref(`/notes/${noteId}/comments`).once('value')).val() || {}
+      const commentsModified = Object.keys(comments).map(key => ({...comments[key], id: key}))
+      commit('setNotes', commentsModified)
+      return commentsModified
+    } catch (e) {}
+  },
+
   async createComment({commit}, {...args}) {
     try {
-      const comment = await firebase.database().ref(`/notes/${args.noteId}/comments`).push({...args})
-      return {...comment}
+      await firebase.database().ref(`/notes/${args.noteId}/comments`).push({...args})
+      return {...args}
     } catch (e) {}
   },
 }

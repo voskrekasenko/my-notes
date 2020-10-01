@@ -3,7 +3,9 @@
     <h1>{{ note.name }}</h1>
     <p>{{ note.content }}</p>
     <hr>
-    <Comments :comments="note.comments" :note-id="noteId"/>
+    <Comments
+      :note-id="noteId"
+    />
   </section>
 </template>
 

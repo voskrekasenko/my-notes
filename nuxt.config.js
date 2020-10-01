@@ -56,7 +56,7 @@ module.exports = {
   ],
   plugins: [
     '@/plugins/vuelidate',
-    '@plugins/filters.js'
+    '@/plugins/moment.js',
   ]
 }
 

@@ -7,7 +7,7 @@
         :key="comment.id"
       >
         <span class="badge badge-secondary">{{ comment.author }}</span>
-        <span class="badge badge-warning">{{ comment.created_at | formatDate }}</span>
+        <span class="badge badge-warning">{{ comment.created_at }}</span>
         <p>{{ comment.content }}</p>
       </li>
     </ul>
@@ -71,6 +71,7 @@
 <script>
 import {required, helpers} from 'vuelidate/lib/validators'
 import {regexTwoWordCapitalise} from '@/helpers/constants'
+import moment from 'moment'
 
 const twoWordsCapitalise = helpers.regex('twoWordsCapitalise', regexTwoWordCapitalise)
 
@@ -83,10 +84,6 @@ export default {
   },
   name: "Comments",
   props: {
-    comments: {
-      type: Array,
-      required: false
-    },
     noteId: {
       type: String,
       required: true
@@ -96,9 +93,17 @@ export default {
     author: {required, twoWordsCapitalise},
     content: {required}
   },
+  async mounted() {
+    await this.$store.dispatch('comments/fetchComments', this.noteId)
+  },
+  computed: {
+    comments() {
+      return this.$store.getters['comments/comments']
+    }
+  },
   methods: {
     async commentHandler() {
-      const created_at = Date.now().toString()
+      const created_at = moment().format('YYYY-MM-DD HH:mm')
 
       if (this.$v.$invalid) {
         this.$v.$touch()
@@ -111,6 +116,8 @@ export default {
         created_at,
         noteId: this.noteId
       })
+
+      await this.$store.dispatch('comments/fetchComments', this.noteId)
       this.clearFields()
       this.$v.$reset()
     },
