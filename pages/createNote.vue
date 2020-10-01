@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Note from '@/components/Note'
+import Note from '~/components/Note'
 
 export default {
   name: 'createNote',

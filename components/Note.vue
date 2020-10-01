@@ -60,8 +60,10 @@ import {required} from 'vuelidate/lib/validators'
 export default {
   data: function () {
     return {
+      notes: this.$store.getters['notes/notes'],
+      storage: this.$store.getters['settings/storage'],
       noteName: this.name,
-      noteContent: this.content,
+      noteContent: this.content
     }
   },
   name: 'Note',
@@ -99,11 +101,11 @@ export default {
         return
       }
 
-      await this.$store.dispatch(`notes/${this.noteId ? 'updateNote' : 'createNote'}`, {
-        name: this.noteName,
-        content: this.noteContent,
-        id: this.noteId
-      })
+      await this.$store.dispatch(`notes/${this.noteId ? `${this.storage}UpdateNote` : `${this.storage}CreateNote`}`, {
+          name: this.noteName,
+          content: this.noteContent,
+          id: this.noteId,
+        })
       this.clearFields()
       this.$v.$reset()
       this.$router.push('/notes')

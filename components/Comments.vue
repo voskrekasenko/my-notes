@@ -70,10 +70,10 @@
 
 <script>
 import {required, helpers} from 'vuelidate/lib/validators'
-import {regexTwoWordCapitalise} from '@/helpers/constants'
 import moment from 'moment'
+import {REGEX_TWO_WORD_CAPITALISE} from '~/helpers/constants'
 
-const twoWordsCapitalise = helpers.regex('twoWordsCapitalise', regexTwoWordCapitalise)
+const twoWordsCapitalise = helpers.regex('twoWordsCapitalise', REGEX_TWO_WORD_CAPITALISE)
 
 export default {
   data: function() {
@@ -99,6 +99,9 @@ export default {
   computed: {
     comments() {
       return this.$store.getters['comments/comments']
+    },
+    storage() {
+      return this.$store.getters['settings/storage']
     }
   },
   methods: {
