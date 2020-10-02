@@ -13,7 +13,6 @@
 import Note from '@/components/Note'
 
 export default {
-  name: "_id",
   components: {
     Note
   },

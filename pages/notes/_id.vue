@@ -3,14 +3,15 @@
     <h1>{{ note.name }}</h1>
     <p>{{ note.content }}</p>
     <hr>
-    <Comments :comments="note.comments"/>
+    <Comments
+      :note-id="noteId"
+    />
   </section>
 </template>
 
 <script>
-import Comments from '@/components/Comments'
+import Comments from '~/components/Comments'
 export default {
-  name: '_id',
   validate({store, params}) {
     return store.getters['notes/notes'].find(note => note.id === params.id)
   },
@@ -20,6 +21,11 @@ export default {
   },
   components: {
     Comments
+  },
+  computed: {
+    noteId() {
+      return this.$route.params.id
+    }
   }
 }
 </script>
