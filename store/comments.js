@@ -19,9 +19,9 @@ export const actions = {
       return commentsModified
     } catch (e) {}
   },
-  localStorageFetchComments({commit}, noteId) {
+  async localStorageFetchComments({commit}, noteId) {
     try {
-      const comments = JSON.parse(window.localStorage.getItem('comments')) || []
+      const comments = await JSON.parse(window.localStorage.getItem('comments')) || []
       const noteComments = comments.filter(el => el.noteId === noteId)
       commit('setComments', noteComments)
       return comments
@@ -38,7 +38,7 @@ export const actions = {
     try {
       const comments = [...state.comments]
       comments.push(args)
-      window.localStorage.setItem('comments', JSON.stringify(comments))
+      await window.localStorage.setItem('comments', JSON.stringify(comments))
       commit('setComments', comments)
     } catch (e) {}
   },
