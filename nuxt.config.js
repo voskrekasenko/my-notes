@@ -34,6 +34,28 @@ module.exports = {
         })
       }
     }
-  }
+  },
+  modules: [
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: 'AIzaSyAe0EG6TlIdZJomo7neLSxFgEhP4D_Ybjk',
+          authDomain: 'testnotes-8564c.firebaseapp.com',
+          databaseURL: 'https://testnotes-8564c.firebaseio.com',
+          projectId: 'testnotes-8564c',
+          storageBucket: 'testnotes-8564c.appspot.com',
+          messagingSenderId: '82463393361',
+          appId: '1:82463393361:web:ae666ca320a142a9cd5a70'
+        },
+        services: {
+          realtimeDb: true
+        }
+      }
+    ]
+  ],
+  plugins: [
+    '@/plugins/vuelidate'
+  ]
 }
 
