@@ -94,7 +94,7 @@ export default {
     content: {required}
   },
   async mounted() {
-    await this.$store.dispatch('comments/fetchComments', this.noteId)
+    await this.$store.dispatch(`comments/${this.$store.getters['settings/storage']}FetchComments`, this.noteId)
   },
   computed: {
     comments() {
@@ -113,14 +113,14 @@ export default {
         return
       }
 
-      await this.$store.dispatch('comments/createComment', {
+      await this.$store.dispatch(`comments/${this.$store.getters['settings/storage']}CreateComment`, {
         author: this.author,
         content: this.content,
         created_at,
         noteId: this.noteId
       })
 
-      await this.$store.dispatch('comments/fetchComments', this.noteId)
+      await this.$store.dispatch(`comments/${this.$store.getters['settings/storage']}FetchComments`, this.noteId)
       this.clearFields()
       this.$v.$reset()
     },

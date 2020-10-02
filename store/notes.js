@@ -19,11 +19,11 @@ export const actions = {
       return notesModified
     } catch (e) {}
   },
-  async localStorageFetchNotes({commit}) {
+  localStorageFetchNotes({commit}) {
     try {
       let notes = JSON.parse(window.localStorage.getItem('notes')) || []
       commit('setNotes', notes)
-      return {}
+      return notes
     } catch (e) {}
   },
 
@@ -33,10 +33,10 @@ export const actions = {
       return {...note, id: note.getKey()}
     } catch (e) {}
   },
-  async localStorageCreateNote({commit, state}, ...args) {
+  localStorageCreateNote({commit, state}, ...args) {
     try {
       const note = Object.assign( ...args, {id: Math.floor(Date.now() / 1000).toString()})
-      const notes = state.notes
+      const notes = [...state.notes]
       notes.push(note)
       window.localStorage.setItem('notes', JSON.stringify(notes))
       commit('setNotes', notes)
@@ -48,7 +48,7 @@ export const actions = {
       await firebase.database().ref(`/notes`).child(id).update({name, content})
     } catch (e) {}
   },
-  async localStorageUpdateNote({commit, state}, {...args}) {
+  localStorageUpdateNote({commit, state}, {...args}) {
     try {
       let note = args
       let notes = state.notes
