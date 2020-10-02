@@ -8,7 +8,6 @@
 import Note from '~/components/Note'
 
 export default {
-  name: 'createNote',
   components: {
     Note
   }

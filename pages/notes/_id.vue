@@ -12,7 +12,6 @@
 <script>
 import Comments from '~/components/Comments'
 export default {
-  name: '_id',
   validate({store, params}) {
     return store.getters['notes/notes'].find(note => note.id === params.id)
   },

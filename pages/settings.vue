@@ -23,7 +23,6 @@
 import {LOCAL_STORAGE, FIREBASE} from '~/helpers/constants'
 
 export default {
-  name: 'settings',
   data: function() {
     return {
       storage: this.$store.getters['settings/storage'],

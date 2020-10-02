@@ -82,7 +82,6 @@ export default {
       content: ''
     }
   },
-  name: "Comments",
   props: {
     noteId: {
       type: String,

@@ -66,7 +66,6 @@ export default {
       noteContent: this.content
     }
   },
-  name: 'Note',
   props: {
     title: {
       type: String,
