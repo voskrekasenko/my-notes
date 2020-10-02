@@ -38,7 +38,7 @@
       <div class="input-field mb-3">
         <textarea
           class="form-control"
-          placeholder="Edit comment"
+          placeholder="Enter comment"
           v-model="content"
           :class="{'is-invalid': $v.content.$dirty && !$v.content.required}"
         ></textarea>
